@@ -29,7 +29,7 @@ class dc_jqslickmenu {
 	}
 
 	function header(){
-		echo "\n\t<link rel=\"stylesheet\" type=\"text/css\" href=\"".dc_jqslickmenu::get_plugin_directory()."/css/dcslickmenu.css\" media=\"screen\">";
+		echo "\n\t<link rel=\"stylesheet\" type=\"text/css\" href=\"".dc_jqslickmenu::get_plugin_directory()."/css/dcslickmenu.css\" media=\"screen\" />";
 	}
 	
 	function footer(){
