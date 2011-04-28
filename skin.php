@@ -6,8 +6,8 @@
 	$id = clean($id);
 	$skin = $_GET['skin'];
 	$skin = clean($skin);
-	$skin .= '.css';
 	if(!empty($skin)){	
+		$skin .= '.css';
 		$css = file_get_contents('./skins/' . $skin );
 		$widget_skin = preg_replace('/%ID%/',$id, $css);
 		echo $widget_skin;

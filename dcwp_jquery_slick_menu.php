@@ -5,7 +5,7 @@
 		Tags: jquery, flyout, menu, vertical, animated, css, navigation, widget, slider
 		Description: Creates a widget, which adds a sticky sliding menu from any Wordpress custom menu.
 		Author: Lee Chestnutt
-		Version: 1.0
+		Version: 1.1
 		Author URI: http://www.designchemical.com
 */
 

@@ -179,8 +179,8 @@ class dc_jqslickmenu_widget extends WP_Widget {
 		
 					$skin = $wpdcjqslickmenu['skin'];
 					$skin = htmlspecialchars(ucfirst(preg_replace('/\..*$/', '', $skin)));
-					if($skin!='no-theme'){
-						echo "\n\t<link rel=\"stylesheet\" href=\"".dc_jqslickmenu::get_plugin_directory()."/skin.php?widget_id=".$key."&amp;skin=".strtolower($skin)."\" type=\"text/css\" media=\"screen\"  />";
+					if($skin != 'No-theme'){
+						echo "\n\t<link rel=\"stylesheet\" href=\"".dc_jqslickmenu::get_plugin_directory()."/skin.php?widget_id=".$key."&skin=".strtolower($skin)."\" type=\"text/css\" media=\"screen\"  />";
 					}
 				}
 			}
