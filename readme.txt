@@ -1,6 +1,6 @@
 === JQuery Slick Menu Widget ===
 Contributors: remix4
-Donate link: http://www.designchemical.com
+Donate link: http://www.designchemical.com/blog/index.php/wordpress-plugins/wordpress-plugin-jquery-slick-menu-widget/#form-donate
 Tags: jquery, flyout, sliding, menu, vertical, horizontal, animated, navigation, widget
 Requires at least: 3.0
 Tested up to: 3.10
