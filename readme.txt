@@ -3,8 +3,8 @@ Contributors: remix4
 Donate link: http://www.designchemical.com/blog/index.php/wordpress-plugins/wordpress-plugin-jquery-slick-menu-widget/#form-donate
 Tags: jquery, flyout, sliding, menu, vertical, horizontal, animated, navigation, widget
 Requires at least: 3.0
-Tested up to: 3.10
-Stable tag: 1.1
+Tested up to: 3.12
+Stable tag: 1.2
 
 jQuery Slick Menu creates a sticky, sliding menu widget from any Wordpress custom menu.
 
@@ -52,6 +52,9 @@ Another likely cause is due to other non-functioning plugins, which may have err
 2. Locations For Menu Settings
 
 == Changelog ==
+
+= 1.2 = 
+* Fixed: Bug with Safari left/right location
 
 = 1.1 = 
 * Fixed: Bug with "no theme" option

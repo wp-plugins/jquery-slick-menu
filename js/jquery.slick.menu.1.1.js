@@ -44,11 +44,10 @@
 			$tab.css({position: 'absolute'});
 			
 			// Get container dimensions
-		//	var width = $slider.width();
 			var height = $slider.height();
-			var outerW = $slider.outerWidth(true);
+			var outerW = $slider.outerWidth();
 			var widthPx = outerW+'px';
-			var outerH = $slider.outerHeight(true);
+			var outerH = $slider.outerHeight();
 			var padH = outerH - height;
 			var heightPx = outerH+'px';
 			var bodyHeight = $(window).height();

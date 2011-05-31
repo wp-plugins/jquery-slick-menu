@@ -114,7 +114,7 @@ class dc_jqslickmenu_widget extends WP_Widget {
 	  <label for="<?php echo $this->get_field_id('location'); ?>"><?php _e( 'Location' , 'dcjq-slick-menu' ); ?></label>
 		<select name="<?php echo $this->get_field_name('location'); ?>" id="<?php echo $this->get_field_id('location'); ?>" >
 			<option value='top-left' <?php selected( $location, 'top-left'); ?> >Top Left</option>
-			<option value='top-right' <?php selected( $location, 'top-left'); ?> >Top Right</option>
+			<option value='top-right' <?php selected( $location, 'top-right'); ?> >Top Right</option>
 			<option value='bottom-left' <?php selected( $location, 'bottom-left'); ?> >Bottom Left</option>
 			<option value='bottom-right' <?php selected( $location, 'bottom-right'); ?> >Bottom Right</option>
 			<option value='right' <?php selected( $location, 'right'); ?> >Right</option>
