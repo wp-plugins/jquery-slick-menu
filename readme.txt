@@ -4,13 +4,13 @@ Donate link: http://www.designchemical.com/blog/index.php/wordpress-plugins/word
 Tags: jquery, flyout, sliding, menu, vertical, horizontal, animated, navigation, widget
 Requires at least: 3.0
 Tested up to: 3.12
-Stable tag: 1.2
+Stable tag: 1.3
 
 jQuery Slick Menu creates a sticky, sliding menu widget from any Wordpress custom menu.
 
 == Description ==
 
-Creates a widget, which adds a sticky, sliding menu from any standard Wordpress custom menu using jQuery. Can handle multiple slick menus on each page and the location of each menu can be easily set from the widget control panel using a combination of the "location" option and the "offset".
+Creates a widget, which adds a sticky, sliding menu from any standard Wordpress custom menu using jQuery. Can handle multiple slick menus on each page and the location of each menu can be easily set from the widget control panel using a combination of the "location" option and the "offset". The plugin also includes shortcodes, which allow you to add external text links to activate the sliding menu.
 
 = Menu Options =
 
@@ -27,7 +27,16 @@ The widget has several parameters that can be configured to help cutomise the sl
 * Offset - The number of pixels from the edge of the browser window.
 * Animation Speed - The speed at which the slide out menu will open/close
 * Auto-Close Menu - If checked, the menu will automatically slide closed when the user clicks anywhere in the browser
-* Skin - 8 different sample skins for styling the slick container are available to give examples of css that can be used to style your own slick menu.
+* Skin - 12 different sample skins for styling the slick container are available to give examples of css that can be used to style your own slick menu.
+
+= Shortcodes =
+
+The plugin includes the feature to add text links within your site content that will open/close the floating tab.
+
+1. [dcsl-link] - default link, which will toggle the menu open/closed with the link text "Click Here".
+2. [dcsl-link text="Slick Menu"] - toggle the menu open/closed with the link text "Slick Menu".
+3. [dcsl-link action="open"] - open the menu with the default link text.
+4. [dcsl-link action="close"] - close the menu with the default link text.
 
 [__See demo__](http://www.designchemical.com/lab/demo-wordpress-jquery-slick-menu-plugin/)
 
@@ -52,6 +61,10 @@ Another likely cause is due to other non-functioning plugins, which may have err
 2. Locations For Menu Settings
 
 == Changelog ==
+
+= 1.3 = 
+* Added: Shortcodes to open/close menu using external links
+* Added: New skins
 
 = 1.2 = 
 * Fixed: Bug with Safari left/right location

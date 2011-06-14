@@ -249,7 +249,10 @@ class dc_jqslickmenu_widget extends WP_Widget {
 						offset: '<?php echo $offset; ?>',
 						autoClose: <?php echo $autoClose; ?>,
 						tabText: '<?php echo $tabText; ?>',
-						idWrapper: '<?php echo $slick_id ?>'
+						idWrapper: '<?php echo $slick_id ?>',
+						classOpen: 'dcsl-open',
+						classClose: 'dcsl-close',
+						classToggle: 'dcsl-link'
 					});
 				});
 			</script>

@@ -1,7 +1,7 @@
 /*
-
  * DC jQuery Slick - jQuery Slick
  * Copyright (c) 2011 Design Chemical
+ * http://www.designchemical.com
  *
  * Dual licensed under the MIT and GPL licenses:
  * 	http://www.opensource.org/licenses/mit-license.php
@@ -25,6 +25,9 @@
 			speed: 'slow',
 			tabText: 'Click',
 			classTab: 'tab',
+			classOpen: 'slick-open',
+			classClose: 'slick-close',
+			classToggle: 'slick-toggle',
 			autoClose: true
 		};
 
@@ -42,6 +45,9 @@
 			var $slider = $('#'+defaults.idWrapper);
 			var $tab = $('.'+defaults.classTab,$slider);
 			$tab.css({position: 'absolute'});
+			var linkOpen = $('.'+defaults.classOpen);
+			var linkClose = $('.'+defaults.classClose);
+			var linkToggle = $('.'+defaults.classToggle);
 			
 			// Get container dimensions
 			var height = $slider.height();
@@ -58,7 +64,9 @@
 				$('body').mouseup(function(e){
 					if($slider.hasClass('active')){
 						if(!$(e.target).parents('#'+defaults.idWrapper+' .'+defaults.classTab).length){
-							slickClose();
+							if(!($(e.target).hasClass(defaults.classOpen) || $(e.target).hasClass(defaults.classToggle))){
+								slickClose();
+							}
 						}
 					}
 				});
@@ -70,6 +78,27 @@
 				} else {
 					slickOpen();
 				}
+			});
+			
+			$(linkOpen).click(function(e){
+				slickOpen();
+				e.preventDefault();
+			});
+			
+			$(linkClose).click(function(e){
+				if($slider.hasClass('active')){
+					slickClose();
+				}
+				e.preventDefault();
+			});
+			
+			$(linkToggle).click(function(e){
+				if($slider.hasClass('active')){
+					slickClose();
+				} else {
+					slickOpen();
+				}
+				e.preventDefault();
 			});
 	
 			function slickOpen(){
