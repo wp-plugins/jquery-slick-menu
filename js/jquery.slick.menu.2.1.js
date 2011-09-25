@@ -1,7 +1,7 @@
 /*
-
  * DC jQuery Slick - jQuery Slick
  * Copyright (c) 2011 Design Chemical
+ * 	http://www.designchemical.com
  *
  * Dual licensed under the MIT and GPL licenses:
  * 	http://www.opensource.org/licenses/mit-license.php
@@ -18,14 +18,21 @@
 		var defaults = {
 			classWrapper: 'dc-slick',
 			classContent: 'dc-slick-content',
-			idWrapper: 'dc-slick',
+			idWrapper: 'dc-slick-'+$(this).index(),
 			location: 'left',
 			align: 'top',
 			offset: '100px',
 			speed: 'slow',
 			tabText: 'Click',
 			classTab: 'tab',
-			autoClose: true
+			classOpen: 'slick-open',
+			classClose: 'slick-close',
+			classToggle: 'slick-toggle',
+			autoClose: true,
+			loadOpen: false,
+			onLoad : function() {},
+            beforeOpen : function() {},
+			beforeClose: function() {}
 		};
 
 		//call in the default otions
@@ -34,21 +41,32 @@
 		//act upon the element that is passed into the design
 		return $dcSlickObj.each(function(options){
 
+			// declare variables
+			var clWrap = defaults.classWrapper;
+			
 			var slickHtml = $dcSlickObj.html();
+			$dcSlickObj.css('float','left');
+			var objWidth = $dcSlickObj.width();
+			$dcSlickObj.empty();
 			var slickTab = '<div class="'+defaults.classTab+'"><span>'+defaults.tabText+'</span></div>';
-			$dcSlickObj.hide();
-			var slider = '<div id="'+defaults.idWrapper+'" class="'+defaults.classWrapper+'">'+slickTab+'<div class="'+defaults.classContent+'">'+slickHtml+'</div></div>';
+			$(this).hide();
+			var idWrapper = defaults.idWrapper;
+			var slider = '<div id="'+idWrapper+'" class="'+clWrap+'">'+slickTab+'<div class="'+defaults.classContent+'">'+slickHtml+'</div></div>';
 			$('body').append(slider);
-			var $slider = $('#'+defaults.idWrapper);
+			var $slider = $('#'+idWrapper);
 			var $tab = $('.'+defaults.classTab,$slider);
 			$tab.css({position: 'absolute'});
+			var linkOpen = $('.'+defaults.classOpen);
+			var linkClose = $('.'+defaults.classClose);
+			var linkToggle = $('.'+defaults.classToggle);
 			
 			// Get container dimensions
-		//	var width = $slider.width();
 			var height = $slider.height();
-			var outerW = $slider.outerWidth(true);
+			$slider.css('float','left');
+			var outerW = $slider.outerWidth();
 			var widthPx = outerW+'px';
-			var outerH = $slider.outerHeight(true);
+			$slider.css('float','none');
+			var outerH = $slider.outerHeight();
 			var padH = outerH - height;
 			var heightPx = outerH+'px';
 			var bodyHeight = $(window).height();
@@ -58,8 +76,10 @@
 			if(defaults.autoClose == true){
 				$('body').mouseup(function(e){
 					if($slider.hasClass('active')){
-						if(!$(e.target).parents('#'+defaults.idWrapper+' .'+defaults.classTab).length){
-							slickClose();
+						if(!$(e.target).parents('#'+defaults.idWrapper).length){
+							if(!($(e.target).hasClass(defaults.classOpen) || $(e.target).hasClass(defaults.classToggle))){
+								slickClose();
+							}
 						}
 					}
 				});
@@ -72,10 +92,35 @@
 					slickOpen();
 				}
 			});
+			
+			$(linkOpen).click(function(e){
+				slickOpen();
+				e.preventDefault();
+			});
+			
+			$(linkClose).click(function(e){
+				if($slider.hasClass('active')){
+					slickClose();
+				}
+				e.preventDefault();
+			});
+			
+			$(linkToggle).click(function(e){
+				if($slider.hasClass('active')){
+					slickClose();
+				} else {
+					slickOpen();
+				}
+				e.preventDefault();
+			});
+			
+			if(defaults.loadOpen == true){
+				slickOpen();
+			}
 	
 			function slickOpen(){
 			
-				$('.'+defaults.classWrapper).css({zIndex: 10000});
+				$('.'+clWrap).css({zIndex: 10000});
 				$slider.css({zIndex: 10001});
 				if(defaults.location == 'bottom'){
 					$slider.animate({marginBottom: "-=5px"}, "fast").animate({marginBottom: 0}, defaults.speed);
@@ -90,36 +135,44 @@
 					$slider.animate({marginRight: "-=5px"}, "fast").animate({marginRight: 0}, defaults.speed);
 				}
 				$slider.addClass('active');
+				
+				// onOpen callback;
+				defaults.beforeOpen.call(this);
 			}
 			
 			function slickClose(){
 			
 			$slider.css({zIndex: 10000});
 			if($slider.hasClass('active')){
-				if(defaults.location == 'bottom'){
-					$slider.animate({"marginBottom": "-"+heightPx}, defaults.speed);
+				var params = {"marginBottom": "-"+heightPx};
+				switch (defaults.location) {
+					case 'top': 
+					params = {"marginTop": "-"+heightPx};
+					break;
+					case 'left':
+					params = {"marginLeft": "-"+widthPx};					
+					break;
+					case 'right': 
+					params = {"marginRight": "-"+widthPx};
+					break;
 				}
-				if(defaults.location == 'top'){
-					$slider.animate({"marginTop": "-"+heightPx}, defaults.speed);
-				}
-				if(defaults.location == 'left'){
-					$slider.animate({"marginLeft": "-"+widthPx}, defaults.speed);
-				}
-				if(defaults.location == 'right'){
-					$slider.animate({"marginRight": "-"+widthPx}, defaults.speed);
-				}
-				$slider.removeClass('active');
+				$slider.removeClass('active').animate(params, defaults.speed);
 			}
+			// onClose callback;
+			defaults.beforeClose.call(this);
 			}
 			
 			function slickSetup(obj){
+				
 				var $container = $('.'+defaults.classContent,obj);
+				$(obj).addClass(defaults.location).addClass('align-'+defaults.align).css({position: 'fixed', zIndex: 10000});
 				// Get slider border
 				var bdrTop = $slider.css('border-top-width');
 				var bdrRight = $slider.css('border-right-width');
 				var bdrBottom = $slider.css('border-bottom-width');
 				var bdrLeft = $slider.css('border-left-width');
 				// Get tab dimension
+				var $tab = $('.'+defaults.classTab,$slider);
 				var tabWidth = $tab.outerWidth(true);
 				var tabWidthPx = tabWidth+'px';
 				var tabHeight = $tab.outerHeight(true);
@@ -128,49 +181,51 @@
 				var containerH = $container.height();
 				var containerPad = $container.outerHeight(true)-containerH;
 				var maxHeight = bodyHeight - tabHeight;
-				$(obj).addClass(defaults.location).addClass('align-'+defaults.align).css({position: 'fixed', zIndex: 10000});
+				
 				if(outerH > maxHeight){
 					containerH = maxHeight - padH - containerPad;
 					heightPx = maxHeight+'px';
 				}
 				$container.css({height: containerH+'px'});
-				if(defaults.location == 'left'){
-					$(obj).css({marginLeft: '-'+widthPx});
-					$tab.css({marginRight: '-'+tabWidthPx});
-					$(obj).css({top: defaults.offset});
-				}
+				
+				// Default params for location 'left'
+				var params = {marginLeft: '-'+widthPx, top: defaults.offset};
+				var paramsTab = {marginRight: '-'+tabWidthPx}
 				
 				if(defaults.location == 'right'){
-					$(obj).css({marginRight: '-'+widthPx});
-					$tab.css({marginLeft: '-'+tabWidthPx});
-					$(obj).css({top: defaults.offset});
+					params = {marginRight: '-'+widthPx, top: defaults.offset};
+					paramsTab = {marginLeft: '-'+tabWidthPx};
 				}
 				
 				if(defaults.location == 'top'){
-					$(obj).css({marginTop: '-'+heightPx});
-					$tab.css({marginBottom: '-'+tabHeightPx});
+					params = {marginTop: '-'+heightPx};
+					paramsTab = {marginBottom: '-'+tabHeightPx};
 					
 					if(defaults.align == 'left'){
-						$(obj).css({left: defaults.offset});
-						$tab.css({left: 0});
+						params = {marginTop: '-'+heightPx, left: defaults.offset};
+						paramsTab = {marginBottom: '-'+tabHeightPx, left: 0};
 					} else {
-						$(obj).css({right: defaults.offset});
-						$tab.css({right: 0});
+						params = {marginTop: '-'+heightPx, right: defaults.offset};
+						paramsTab = {marginBottom: '-'+tabHeightPx, right: 0};
 					}
 				}
 				
 				if(defaults.location == 'bottom'){
-					$(obj).css({marginBottom: '-'+heightPx});
-					$tab.css({marginTop: '-'+tabHeightPx});
+					params = {marginBottom: '-'+heightPx};
+					paramsTab = {marginTop: '-'+tabHeightPx};
 					
 					if(defaults.align == 'left'){
-						$(obj).css({left: defaults.offset});
-						$tab.css({left: 0});
+						params = {marginBottom: '-'+heightPx, left: defaults.offset};
+						paramsTab = {marginTop: '-'+tabHeightPx, left: 0};
 					} else {
-						$(obj).css({right: defaults.offset});
-						$tab.css({right: 0});
+						params = {marginBottom: '-'+heightPx, right: defaults.offset};
+						paramsTab = {marginTop: '-'+tabHeightPx, right: 0};
 					}
 				}
+				$(obj).css(params);
+				$tab.css(paramsTab);
+				// onLoad callback;
+				defaults.onLoad.call(this);
 			}
 
 		});

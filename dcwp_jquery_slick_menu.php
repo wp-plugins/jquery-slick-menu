@@ -5,7 +5,7 @@
 		Tags: jquery, flyout, menu, vertical, animated, css, navigation, widget, slider
 		Description: Creates a widget, which adds a sticky sliding menu from any Wordpress custom menu.
 		Author: Lee Chestnutt
-		Version: 1.3.1
+		Version: 1.3.2
 		Author URI: http://www.designchemical.com
 */
 
@@ -21,7 +21,7 @@ class dc_jqslickmenu {
 			add_action( 'wp_head', array('dc_jqslickmenu', 'header') );
 			// Scripts
 			wp_enqueue_script( 'jquery' );
-			wp_enqueue_script( 'dcjqslickmenu', dc_jqslickmenu::get_plugin_directory() . '/js/jquery.slick.menu.1.2.js', array('jquery') );
+			wp_enqueue_script( 'dcjqslickmenu', dc_jqslickmenu::get_plugin_directory() . '/js/jquery.slick.menu.2.1.js', array('jquery') );
 			// Shortcodes
 			add_shortcode( 'dcsl-link', 'dcsl_menu_link_shortcode' );
 		}
